@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go All the Way</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body, html {
+            height: 100%;
+            font-family: 'Roboto', sans-serif;
+            color: #64748b;
+        }
+        body {
+            background: linear-gradient(rgba(15, 23, 42, 0.1), rgba(15, 23, 42, 0.1)),
+            url('/backdrop.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100%;
+            padding: 20px;
+        }
+        .logo {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #475569;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .content-wrapper {
+            background-color: rgba(15, 23, 42, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 8px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            height: fit-content;
+            border: 1px solid rgba(100, 116, 139, 0.1);
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 28px;
+            text-align: center;
+            color: #334155;
+        }
+        .input-container {
+            position: relative;
+            margin-bottom: 16px;
+        }
+        .input {
+            width: 100%;
+            height: 50px;
+            background-color: rgba(248, 250, 252, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            border-radius: 6px;
+            color: #334155;
+            padding: 16px 20px 0;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+        .input:focus {
+            background-color: rgba(248, 250, 252, 0.2);
+            border-color: rgba(71, 85, 105, 0.4);
+        }
+        .input-label {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            transition: all 0.1s ease;
+            color: #64748b;
+            pointer-events: none;
+        }
+        .input:focus + .input-label,
+        .input:not(:placeholder-shown) + .input-label {
+            top: 7px;
+            font-size: 0.7rem;
+            color: #475569;
+        }
+        .btn {
+            width: 100%;
+            height: 50px;
+            background-color: #475569;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 24px 0 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn:hover {
+            background-color: #64748b;
+            transform: translateY(-1px);
+        }
+        .info {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 16px;
+            background-color: rgba(248, 250, 252, 0.05);
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid rgba(100, 116, 139, 0.1);
+        }
+        .info h3 {
+            color: #334155;
+            margin-bottom: 12px;
+        }
+        .addon-url {
+            width: 100%;
+            background-color: rgba(248, 250, 252, 0.1);
+            color: #334155;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 6px;
+            word-break: break-all;
+            display: none;
+        }
+        .buttons-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .action-btn {
+            background-color: #475569;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+            font-weight: 700;
+        }
+        .action-btn:hover {
+            background-color: #64748b;
+            transform: translateY(-1px);
+        }
+        a {
+            color: #475569;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: #64748b;
+        }
+        p {
+            margin-bottom: 8px;
+        }
+        p:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">Go All the Way</div>
+        <div class="content-wrapper">
+            <h1>Stremio Addon Installation</h1>
+            <div class="input-container">
+                <input type="text" id="rd-key" class="input" placeholder=" ">
+                <label for="rd-key" class="input-label">Real-Debrid API Key</label>
+            </div>
+            <div class="input-container">
+                <input type="text" id="pr-key" class="input" placeholder=" ">
+                <label for="pr-key" class="input-label">Premiumize API Key</label>
+            </div>
+            <div class="input-container">
+                <input type="text" id="tb-key" class="input" placeholder=" ">
+                <label for="tb-key" class="input-label">TorBox API Key</label>
+            </div>
+            <button class="btn" onclick="generateAddonUrl()">GENERATE</button>
+            <div id="addon-url" class="addon-url"></div>
+            <div class="info">
+                <h3>How to get API Keys:</h3>
+                <p><strong>Real-Debrid:</strong> Visit <a href="https://real-debrid.com/apitoken" target="_blank">https://real-debrid.com/apitoken</a></p>
+                <p><strong>Premiumize:</strong> Visit <a href="https://www.premiumize.me/account" target="_blank">https://www.premiumize.me/account</a></p>
+                <p><strong>TorBox:</strong> Visit <a href="https://torbox.app/account" target="_blank">https://torbox.app/account</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generateAddonUrl() {
+            const rdKey = document.getElementById('rd-key').value.trim();
+            const prKey = document.getElementById('pr-key').value.trim();
+            const tbKey = document.getElementById('tb-key').value.trim();
+            
+            if (!rdKey && !prKey && !tbKey) {
+                alert('Please enter at least one API key');
+                return;
+            }
+            
+            // Get the base URL components
+            const protocol = window.location.protocol;
+            const hostname = window.location.host;
+            const baseUrl = `${protocol}//${hostname}`;
+            
+            // Generate the keys part of the URL
+            let keys = [];
+            if (rdKey) keys.push(`rd=${rdKey}`);
+            if (prKey) keys.push(`pr=${prKey}`);
+            if (tbKey) keys.push(`tb=${tbKey}`);
+            
+            // Create the addon URL
+            const addonUrl = `${baseUrl}/${keys.join(',')}/manifest.json`;
+            
+            // Always use stremio:// protocol for the Stremio URL, regardless of original protocol
+            const stremioUrl = `stremio://${hostname}/${keys.join(',')}/manifest.json`;
+            
+            const urlDiv = document.getElementById('addon-url');
+            urlDiv.style.display = 'block';
+            urlDiv.innerHTML = `
+                <p>Your addon URL:</p>
+                <p>${addonUrl}</p>
+                <div class="buttons-container">
+                    <button onclick="window.location.href='${stremioUrl}'" class="action-btn">Install in Stremio</button>
+                    <button onclick="copyToClipboard('${addonUrl}')" class="action-btn">Copy URL</button>
+                </div>
+            `;
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('URL copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert('Failed to copy URL. Please copy it manually.');
+            });
+        }
+    </script>
+</body>
+</html>
