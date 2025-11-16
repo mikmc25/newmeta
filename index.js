@@ -347,7 +347,7 @@ app.get('/:apiKeys/manifest.json', (req, res) => {
     const manifest = {
         id: 'org.magnetio.hy',
         version: '2.0.0',
-        name: '🅷 🅈 🅸💁☘︎',
+        name: '🅷 🅈 🅸☘︎',
         description: 'Stream movies and series via Debrid services',
         resources: ['stream'],
         types: ['movie', 'series'],
@@ -1041,5 +1041,5 @@ setInterval(() => {
     }
 }, 60000); // Every minute
 
-const port = process.env.PORT || 9516;
+const port = process.env.PORT || 80;
 app.listen(port, () => console.log(`\n🚀 Addon running at http://localhost:${port}`));
